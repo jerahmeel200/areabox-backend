@@ -103,6 +103,7 @@ const embedEndpoints = [
   
       if (metadata) {
         const { title, image, description } = metadata;
+        console.log("metadata", metadata )
         if (title) meta.title = title;
         if (image) {
         //   // Assuming you have a function named 'resizeImage' for image resizing
@@ -161,60 +162,60 @@ const embedEndpoints = [
 
 
 
-  function resizeImage(imgUrl) {
-    return new Promise((resolve, reject) => {
-      axios({
-        method: 'get',
-        url: imgUrl,
-        responseType: 'stream'
-      })
-        .then((response) => {
-          let transformer = sharp()
-            .resize({ height: 350 })
-            .png();
+  // function resizeImage(imgUrl) {
+  //   return new Promise((resolve, reject) => {
+  //     axios({
+  //       method: 'get',
+  //       url: imgUrl,
+  //       responseType: 'stream'
+  //     })
+  //       .then((response) => {
+  //         let transformer = sharp()
+  //           .resize({ height: 350 })
+  //           .png();
   
-          //clip url for filename until ? or #
-          const urlId = imgUrl.replace(/((\?|#).*)?$/, '');
-          // const linkId = crypto.createHash('sha1').update(imgUrl).digest("hex");
+  //         //clip url for filename until ? or #
+  //         const urlId = imgUrl.replace(/((\?|#).*)?$/, '');
+  //         // const linkId = crypto.createHash('sha1').update(imgUrl).digest("hex");
   
-          // let ref = admin.database().ref('card').child(`links/${linkId}`)
-          // ref.on("value", function (snapshot) {
-          //   if (snapshot.exists()) {
-          //     const link = snapshot.val().url
-          //     resolve(link)
-          //     return;
-          //   } else {
-          let newFileName = (`${Date.now()}_${urlId}`);
-          newFileName = newFileName.replace(/[^\w.]+/g, "_");
+  //         // let ref = admin.database().ref('card').child(`links/${linkId}`)
+  //         // ref.on("value", function (snapshot) {
+  //         //   if (snapshot.exists()) {
+  //         //     const link = snapshot.val().url
+  //         //     resolve(link)
+  //         //     return;
+  //         //   } else {
+  //         let newFileName = (`${Date.now()}_${urlId}`);
+  //         newFileName = newFileName.replace(/[^\w.]+/g, "_");
   
-          const blob = bucket.file(newFileName);
-          const blobstream = blob.createWriteStream({
-            resumable: false,
-            validation: false,
-            gzip: true,
-            contentType: "auto",
-            metadata: {
-              'Cache-Control': 'public, max-age=31536000'
-            }
-          })
-          console.log("image successfully converted to: ", blobstream );
-          response.data.pipe(transformer).pipe(blobstream)
-            .on('error', (error) => {
-              reject(error)
-            })
-            .on('finish', () => {
-              console.log("image converted successfully");
-              const storageUrl = `https://storage.googleapis.com/${bucket.name}/${newFileName}`
-              // ref.set({ url: storageUrl });
-              resolve(storageUrl)
-            });
-          // }
-        })
-        .catch(err => {
-          reject("Image transfer error. ", err);
-        });
-    })
-  }
+  //         const blob = bucket.file(newFileName);
+  //         const blobstream = blob.createWriteStream({
+  //           resumable: false,
+  //           validation: false,
+  //           gzip: true,
+  //           contentType: "auto",
+  //           metadata: {
+  //             'Cache-Control': 'public, max-age=31536000'
+  //           }
+  //         })
+  //         console.log("image successfully converted to: ", blobstream );
+  //         response.data.pipe(transformer).pipe(blobstream)
+  //           .on('error', (error) => {
+  //             reject(error)
+  //           })
+  //           .on('finish', () => {
+  //             console.log("image converted successfully");
+  //             const storageUrl = `https://storage.googleapis.com/${bucket.name}/${newFileName}`
+  //             // ref.set({ url: storageUrl });
+  //             resolve(storageUrl)
+  //           });
+  //         // }
+  //       })
+  //       .catch(err => {
+  //         reject("Image transfer error. ", err);
+  //       });
+  //   })
+  // }
 
 app.listen(port, ()=>{
     console.log(`server started on port ${port}`)
