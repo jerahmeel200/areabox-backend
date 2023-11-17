@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "areabox-chat",
+  "private_key_id": "0da84813a8365d1d61ddb90a7c825b303015babc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDQfP9oeEGFB79+\nhArcexSL3ilzPzcn7wZnSCUrrpUWBgx00YWnoqyUXKSgRASx1QHRwXKzhCzfBVNf\nc/nOvrb5TSwZEkTxQyQFaz1GITQeo0y263o0vdZKTrFOg+nifZyijkqLHK3Y/qzZ\naKjuc8P2FCL4Ym4MxMo11bC6gNlZAz50VAUWn7VtlkNJ22D4o+lxZsTuZ5xCZSXa\ntMT8cl3ASoKnht4755S2JRUFtFAXOJxEY5mlvNULa1yHiB5e3a1oGKVufwNbncSg\nlt5BScbcXsrK976+mkRh3mlZzqAI90TFlDgBytMil6fof+wEyKESaUulVN/IrJiT\nz1wLq2xhAgMBAAECggEAG+lMESqeTOa5ZIDdamCA4uu6XV8ubWZy00NllIhCFcl4\nA/Cj5cohtBgGAx2wCjWz0WbGShGtJytRmtMOM7c1DEGgYHfhanI8YYxWjuu1jE98\n3vU97k8m39pSouoGlweNf3awtJiBjq4jqlR4Xzn411ohR2L4DDYRQy1JRGKpFmEa\nrvHZU4UrIQTv53aE7GRxCja9vOvePJ9G+4ePsez/ebrwLjKYrFrmWTHV+wqQLDTk\nyvnVAKdLXZLVC+RWp67rkm0Do32PXabiziYyFJRf3lWfMjA0h0K5Et3i0BPOlMAS\n+mUV3EzokrXlq3JjzDKMxziDGA55kUAeieuyUVpCdQKBgQDqvJZ1+5wryr5viJ1m\nGsaYKGWD04TriDQqB8DFMYnsaZS6L7z4obU43V9Y0VHCoz/2CYq1MrFRCUEoIGE5\nGb+enzuXqsWawDDx9+17YQ8ga1UGdm4b2hS7q34xMk9C3ANnW67+puXKxsPJGVJY\nbuMyeblr0cs/mhgj6kERJeIOBQKBgQDjX7loZ6DCNsX49at5N4+8Pzq4wHID3OQL\nsfdXPyAaQB8gF7ZSfu9h1TFWnFDG5YIOOy3b86U5eize+H2akQdogQZeK+mzyuIK\nC3rkSz9xtCA2Dorp70YOEU2EskdnQUGD7QEw4deT+ME4ypStS8nnQQGQOhTb9+Fh\n2UMfi4eXrQKBgB0x3WjJJXBQ5ASNMj5bwC12gMG3kgWVSB+eHTypX6UWsJfDjjZC\nLn7nEY/DYO7bTP41y5mjt2gDxaXO+SiX6jw5Q7kmVTNdCfleQ5wfwzjeAJIwMpum\nMQPyXVyTDEadhJLbVVV4voXM2NbvHk2/ZOSHPSeKzUOYz73Pyc3vL0FdAoGAQQNW\n7V5sHfwxYT1FmXRkmevua3NDZo1be2iYk47OLBNXkwKUtEPtSKj/4Ybypdxr8ovD\nUhf5j1S6zcp5h5+eYag63ORrf2gsd7jOm8ZUTru1Vh+UYs1y14TlCGM9fW2wQPuc\nkpCQ5pODFC0AlAiOo5v3yXiCDF91R1grFDL+Q0UCgYAvNKZfDl3INtr4YsVs9Xvd\nxJ/+Ml8LjzqBi4Y/CZu/3JokukhGTsJqvb8vA3Pg6uzyfvqOGR7XBTRpCbEJnPAo\nTjM4k/VmRNantP1sZ3Lhw9V7aASQo5gLPvrTFyWmNxFCW5ZrOXu3K5A49lcj1XUL\ntwRGXEsA3BGo6YuARw6inA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "areabox-chat@appspot.gserviceaccount.com",
+  "client_id": "100771796434986027036",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/areabox-chat%40appspot.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
