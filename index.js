@@ -7,20 +7,13 @@ const cors = require("cors");
 const oembetter = require("oembetter")();
 const { Storage } = require("@google-cloud/storage");
 const sharp = require("sharp");
-<<<<<<< HEAD
 const { fileParser } = require("express-multipart-file-parser");
-=======
->>>>>>> 7a1dd17ff139ccf72bfc7336b8fda9d60cab8b57
 const metascraper = require("metascraper")([
   require("metascraper-description")(),
   require("metascraper-image")(),
   require("metascraper-title")(),
 ]);
-<<<<<<< HEAD
 // const path = require("path");
-=======
-
->>>>>>> 7a1dd17ff139ccf72bfc7336b8fda9d60cab8b57
 app.use(express.json());
 
 var corsOptions = {
@@ -47,7 +40,6 @@ app.use(cors(corsOptions), function (req, res, next) {
   }
   next();
 });
-<<<<<<< HEAD
 
 app.get("/", (req, res) => {
   res.send("hello world one love");
@@ -62,17 +54,6 @@ const storage = new Storage({
   projectId,
   keyFilename,
 });
-=======
-
-app.get("/", (req, res) => {
-  res.send("hello world one love");
-});
-
-// Cloud Storage and Admin Details
-const projectId = "areabox-chat";
-const bucketName = `${projectId}.appspot.com`;
-const keyFileName = "./areabox-chat-e63f7e047acb.json";
->>>>>>> 7a1dd17ff139ccf72bfc7336b8fda9d60cab8b57
 
 const embedEndpoints = [
   { domain: "spotify.com", endpoint: "https://embed.spotify.com/oembed/" },
@@ -177,7 +158,6 @@ const embedEndpoints = [
   },
   { domain: "roosterteeth.com", endpoint: "https://roosterteeth.com/oembed" },
 ];
-<<<<<<< HEAD
 // const storage = new Storage({
 //   projectId: "areabox-chat",
 //   keyFilename: path.join(__dirname, "./areabox-chat-0da84813a836.json"),
@@ -185,17 +165,6 @@ const embedEndpoints = [
 const bucket = storage.bucket(bucketName);
 
 // storage.getBuckets().then((x) => console.log(x));
-=======
-
-const storage = new Storage({
-  projectId,
-  keyFileName,
-});
-
-const bucket = storage.bucket(bucketName);
-
-console.log("bucket", bucket);
->>>>>>> 7a1dd17ff139ccf72bfc7336b8fda9d60cab8b57
 // ***********
 // META ROUTE *
 // ***********
@@ -206,7 +175,6 @@ app.get("/meta", async (req, res) => {
     // Check if the 'u' parameter is provided and not empty
     if (!u) {
       return res.status(400).send("Invalid URL");
-<<<<<<< HEAD
     }
 
     // Ensure the URL starts with 'http' or 'https'
@@ -413,135 +381,3 @@ async function addfile() {
     console.log("exception occur = " + exception);
   }
 }
-=======
-    }
-
-    // Ensure the URL starts with 'http' or 'https'
-    const url = u.trimLeft().startsWith("http") ? u : "https://" + u;
-
-    const meta = {};
-    const { data: html } = await axios.get(url);
-
-    // Use metascraper to extract metadata from the webpage
-    const metadata = await metascraper({ html, url });
-
-    if (metadata) {
-      const { title, image, description } = metadata;
-      console.log("metadata", metadata);
-      if (title) meta.title = title;
-      if (image) {
-        // Assuming you have a function named 'resizeImage' for image resizing
-        let resizedImage = await resizeImage(image);
-        meta.img = resizedImage;
-        // meta.img = image;
-      }
-      if (description) meta.texts = description;
-      meta.success = true;
-    }
-
-    return res.status(200).json(meta);
-  } catch (err) {
-    console.error("meta error", err);
-    res.status(500).send(err.message);
-  }
-});
-
-//************
-// GET EMBED *
-//************
-app.get("/get-embed", (req, res) => {
-  let { link } = req.query;
-  console.log("EMBED QUERY LINK", link);
-  if (link) {
-    link = decodeURI(link);
-    link = Object.keys(qs.parse(link))[0];
-    console.log("Embed Deco-Parsed Link", link);
-    if (link.trimLeft().indexOf("http") < 0) {
-      link = `https://${link}`;
-    }
-
-    const allowedEndpoints = [
-      ...oembetter.suggestedEndpoints,
-      ...embedEndpoints,
-    ];
-    oembetter.endpoints(allowedEndpoints);
-    // console.log("allowedEndpoints",allowedEndpoints)
-
-    // oembetter.whitelist(oembetter.suggestedWhitelist);
-    // { maxwidth: 380, maxheight: 380 }
-
-    oembetter.fetch(link, (err, response) => {
-      if (!err) {
-        const html = response.html;
-        return res.status(200).json({
-          html,
-        });
-      } else {
-        console.log("EMBED ERROR", err.message);
-        return res.status(400).send("No Embed HTML");
-      }
-    });
-  } else {
-    return null;
-  }
-});
-
-function resizeImage(imgUrl) {
-  return new Promise((resolve, reject) => {
-    axios({
-      method: "get",
-      url: imgUrl,
-      responseType: "stream",
-    })
-      .then((response) => {
-        let transformer = sharp().resize({ height: 350 }).png();
-
-        //clip url for filename until ? or #
-        const urlId = imgUrl.replace(/((\?|#).*)?$/, "");
-        // const linkId = crypto.createHash('sha1').update(imgUrl).digest("hex");
-
-        // let ref = admin.database().ref('card').child(`links/${linkId}`)
-        // ref.on("value", function (snapshot) {
-        //   if (snapshot.exists()) {
-        //     const link = snapshot.val().url
-        //     resolve(link)
-        //     return;
-        //   } else {
-        let newFileName = `${Date.now()}_${urlId}`;
-        newFileName = newFileName.replace(/[^\w.]+/g, "_");
-
-        const blob = bucket.file(newFileName);
-        const blobstream = blob.createWriteStream({
-          resumable: false,
-          validation: false,
-          gzip: true,
-          contentType: "auto",
-          metadata: {
-            "Cache-Control": "public, max-age=31536000",
-          },
-        });
-        console.log("image successfully converted to: ", blobstream);
-        response.data
-          .pipe(transformer)
-          .pipe(blobstream)
-          .on("error", (error) => {
-            reject(error);
-          })
-          .on("finish", () => {
-            console.log("image converted successfully");
-            const storageUrl = `https://storage.googleapis.com/${bucket.name}/${newFileName}`;
-            // ref.set({ url: storageUrl });
-            resolve(storageUrl);
-          });
-        // }
-      })
-      .catch((err) => {
-        reject("Image transfer error. ", err);
-      });
-  });
-}
-
-app.listen(port, () => {
-  console.log(`server started on port ${port}`);
-});
->>>>>>> 7a1dd17ff139ccf72bfc7336b8fda9d60cab8b57
